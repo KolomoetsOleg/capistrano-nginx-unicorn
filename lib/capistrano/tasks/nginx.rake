@@ -7,9 +7,9 @@ namespace :nginx do
   task :setup do
     on roles(:web) do
       execute :mkdir, "-p", shared_path.join("log")
-      template("nginx_conf.erb", "/tmp/nginx_#{fetch(:nginx_config_name)}")
+      template("nginx_conf.erb", "/tmp/#{fetch(:nginx_config_name)}")
       if fetch(:nginx_config_path) == "/etc/nginx/sites-available"
-        sudo :mv, "/tmp/nginx_#{fetch(:nginx_config_name)} /etc/nginx/sites-available/#{fetch(:nginx_config_name)}"
+        sudo :mv, "/tmp/#{fetch(:nginx_config_name)} /etc/nginx/sites-available/#{fetch(:nginx_config_name)}"
         sudo :ln, "-fs", "/etc/nginx/sites-available/#{fetch(:nginx_config_name)} /etc/nginx/sites-enabled/#{fetch(:nginx_config_name)}"
       else
         sudo :mv, "/tmp/#{fetch(:nginx_config_name)} #{fetch(:nginx_config_path)}/#{fetch(:nginx_config_name)}"

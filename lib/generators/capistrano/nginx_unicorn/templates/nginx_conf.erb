@@ -1,5 +1,5 @@
 upstream unicorn_<%= fetch(:nginx_config_name) %> {
-  server unix:/tmp/unicorn.<%= fetch(:nginx_config_name) %>.sock fail_timeout=0;
+  server unix:<%= fetch(:unicorn_sock) %> fail_timeout=0;
 }
 
 <% if fetch(:nginx_use_ssl) %>
